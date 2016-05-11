@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmbitourSocketServerService", "AmbitourSocketServerService.csproj", "{A09ACF35-1B4A-4323-AF08-E7D06EA05C71}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AmbitourSocketServerSetup", "..\AmbitourSocketServerSetup\AmbitourSocketServerSetup.vdproj", "{D68D2DB6-93D3-4F60-AFB7-26198F7857DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A09ACF35-1B4A-4323-AF08-E7D06EA05C71}.Debug|x86.ActiveCfg = Debug|x86
+		{A09ACF35-1B4A-4323-AF08-E7D06EA05C71}.Debug|x86.Build.0 = Debug|x86
+		{A09ACF35-1B4A-4323-AF08-E7D06EA05C71}.Release|x86.ActiveCfg = Release|x86
+		{A09ACF35-1B4A-4323-AF08-E7D06EA05C71}.Release|x86.Build.0 = Release|x86
+		{D68D2DB6-93D3-4F60-AFB7-26198F7857DB}.Debug|x86.ActiveCfg = Debug
+		{D68D2DB6-93D3-4F60-AFB7-26198F7857DB}.Debug|x86.Build.0 = Debug
+		{D68D2DB6-93D3-4F60-AFB7-26198F7857DB}.Release|x86.ActiveCfg = Release
+		{D68D2DB6-93D3-4F60-AFB7-26198F7857DB}.Release|x86.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
