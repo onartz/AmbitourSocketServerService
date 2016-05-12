@@ -5,5 +5,17 @@
     <Setting Name="Port" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">11000</Value>
     </Setting>
+    <Setting Name="ServerIPAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">10.10.68.28</Value>
+    </Setting>
+    <Setting Name="IncomingQueue" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Ambitour\incomingRequest\</Value>
+    </Setting>
+    <Setting Name="FileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.xml</Value>
+    </Setting>
+    <Setting Name="SocketReceivedTimeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

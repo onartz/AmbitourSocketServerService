@@ -24,13 +24,15 @@ namespace AmbitourSocketServerService
     /// 
     /// When a new request arrives, the server responds with the same data and try to deserialize it as a ACLMessage
     /// and store it as an xml file in the Request Queue on the disk to be processed later by Ambitour
+    /// 
+    /// The request must contain <EOF> at the end
     /// </summary>
     public partial class Service1 : ServiceBase
     {
         public Service1()
         {
             InitializeComponent();
-            if (!System.Diagnostics.EventLog.SourceExists("Ambitour"))
+            if (!System.Diagnostics.EventLog.SourceExists("AmbitourLog"))
             {
                 System.Diagnostics.EventLog.CreateEventSource(
                     "Ambitour", "MyNewLog");
@@ -66,16 +68,17 @@ namespace AmbitourSocketServerService
             XmlSerializer SerializerObj = new XmlSerializer(typeof(ACLMessage));
             // Data buffer for incoming data.
             byte[] bytes = new Byte[1024];
+            TextWriter tw = null;
 
             // Establish the local endpoint for the socket.
             // Dns.GetHostName returns the name of the 
             // host running the application.
             // IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-            IPHostEntry ipHostInfo = Dns.GetHostByName("aip-olivier");
+           // IPHostEntry ipHostInfo = Dns.GetHostByName("aip-olivier");
            // IPAddress ipAddress = ipHostInfo.AddressList.FirstOrDefault();
-            IPAddress ipAddress = IPAddress.Parse("10.10.68.28");
+            IPAddress ipAddress = IPAddress.Parse(Settings1.Default.ServerIPAddress);
             
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Settings1.Default.Port);
 
             // Create a TCP/IP socket.
             Socket listener = new Socket(AddressFamily.InterNetwork,
@@ -94,59 +97,59 @@ namespace AmbitourSocketServerService
                 {
                     // Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
+                    //handler.ReceiveTimeout = Settings1.Default.SocketReceivedTimeout;
                     data = null;
-
-                    // An incoming connection needs to be processed.
-                    while (true)
-                    {
-                        bytes = new byte[1024];
-                        int bytesRec = handler.Receive(bytes);
-                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                        if (data.IndexOf("<EOF>") > -1)
-                        {
-                            break;
-                        }
-                    }
-                   
-                    data = data.Replace("<EOF>", "");
-                   // eventLog1.WriteEntry(String.Format("Text received : {0}", data));
-
-                    //Deserialize message to ACLMessage : if OK, save to queue
                     try
                     {
-                        XmlReader xmlReader = XmlReader.Create(new StringReader(data));
+                        // An incoming connection needs to be processed.
+                        while (true)
+                        {
+                            bytes = new byte[1024];
+                            int bytesRec = handler.Receive(bytes);
+                            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                            if (data.IndexOf("<EOF>") > -1)
+                            {
+                                break;
+                            }
+                        }
+                        eventLog1.WriteEntry(String.Format("Text received : {0}", data));
+
+                        // Echo the data back to the client.
+                        byte[] response = Encoding.ASCII.GetBytes(data);
+
+                        handler.Send(response);
+                        handler.Shutdown(SocketShutdown.Both);
+                        handler.Close();
+                        String request = data.Replace("<EOF>", "");
+                        // eventLog1.WriteEntry(String.Format("Text received : {0}", data));
+
+                        //Deserialize message to ACLMessage : if OK, save to queue
+
+                        XmlReader xmlReader = XmlReader.Create(new StringReader(request));
                         ACLMessage msg = (ACLMessage)SerializerObj.Deserialize(xmlReader);
                         if (msg != null)
                         {
-                            TextWriter tw = new StreamWriter(@"C:\Ambitour\incomingRequest\" + Guid.NewGuid() + ".xml");
+                            tw = new StreamWriter(Settings1.Default.IncomingQueue + Guid.NewGuid() + Settings1.Default.FileExtension);
                             SerializerObj.Serialize(tw, msg);
                             tw.Close();
                         }
                         else
                             eventLog1.WriteEntry("Msg = null");
                     }
-                    catch (XmlException ex)
+                   
+                    catch (Exception e)
                     {
-                        throw ex;
-
+                        if(tw != null)
+                            tw.Close();
+                        eventLog1.WriteEntry(String.Format(e.ToString()));
                     }
-
-                    // Echo the data back to the client.
-                    byte[] response = Encoding.ASCII.GetBytes(data);
-
-                    handler.Send(response);
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
                 }
-
             }
             catch (Exception e)
             {
                 eventLog1.WriteEntry(String.Format(e.ToString()));
             }
-
-
-
+           
         }  
     }
 }

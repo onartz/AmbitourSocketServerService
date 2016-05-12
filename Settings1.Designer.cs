@@ -34,5 +34,53 @@ namespace AmbitourSocketServerService {
                 this["Port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10.10.68.28")]
+        public string ServerIPAddress {
+            get {
+                return ((string)(this["ServerIPAddress"]));
+            }
+            set {
+                this["ServerIPAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Ambitour\\incomingRequest\\")]
+        public string IncomingQueue {
+            get {
+                return ((string)(this["IncomingQueue"]));
+            }
+            set {
+                this["IncomingQueue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".xml")]
+        public string FileExtension {
+            get {
+                return ((string)(this["FileExtension"]));
+            }
+            set {
+                this["FileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int SocketReceivedTimeout {
+            get {
+                return ((int)(this["SocketReceivedTimeout"]));
+            }
+            set {
+                this["SocketReceivedTimeout"] = value;
+            }
+        }
     }
 }

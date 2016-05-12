@@ -43,6 +43,7 @@
             this.serviceInstaller1.Description = "Socket server pour Ambifoux";
             this.serviceInstaller1.DisplayName = "AmbitourSocketServerService";
             this.serviceInstaller1.ServiceName = "AmbitourSocketServerService";
+            this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
