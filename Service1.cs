@@ -32,7 +32,7 @@ namespace AmbitourSocketServerService
         public Service1()
         {
             InitializeComponent();
-            if (!System.Diagnostics.EventLog.SourceExists("AmbitourLog"))
+            if (!System.Diagnostics.EventLog.SourceExists("Ambitour"))
             {
                 System.Diagnostics.EventLog.CreateEventSource(
                     "Ambitour", "MyNewLog");
@@ -127,6 +127,7 @@ namespace AmbitourSocketServerService
 
                         XmlReader xmlReader = XmlReader.Create(new StringReader(request));
                         ACLMessage msg = (ACLMessage)SerializerObj.Deserialize(xmlReader);
+
                         if (msg != null)
                         {
                             tw = new StreamWriter(Settings1.Default.IncomingQueue + Guid.NewGuid() + Settings1.Default.FileExtension);

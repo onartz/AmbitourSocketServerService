@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 namespace SocketServer
 {
     [XmlInclude(typeof(Handle))]
+    [XmlInclude(typeof(Demande))]
     public abstract class Content
     {
     }

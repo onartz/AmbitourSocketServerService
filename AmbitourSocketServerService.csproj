@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="ObjetsMetiers\ACLMessage.cs" />
     <Compile Include="ObjetsMetiers\Content.cs" />
+    <Compile Include="ObjetsMetiers\Demande.cs" />
     <Compile Include="ObjetsMetiers\Handle.cs" />
     <Compile Include="ObjetsMetiers\Server.cs" />
     <Compile Include="ProjectInstaller.cs">
