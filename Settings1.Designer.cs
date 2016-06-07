@@ -37,7 +37,7 @@ namespace AmbitourSocketServerService {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10.10.68.28")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10.10.68.150")]
         public string ServerIPAddress {
             get {
                 return ((string)(this["ServerIPAddress"]));

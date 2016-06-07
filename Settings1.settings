@@ -6,7 +6,7 @@
       <Value Profile="(Default)">11000</Value>
     </Setting>
     <Setting Name="ServerIPAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">10.10.68.28</Value>
+      <Value Profile="(Default)">10.10.68.150</Value>
     </Setting>
     <Setting Name="IncomingQueue" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Ambitour\incomingRequest\</Value>

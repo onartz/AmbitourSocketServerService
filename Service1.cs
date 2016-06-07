@@ -69,15 +69,7 @@ namespace AmbitourSocketServerService
             // Data buffer for incoming data.
             byte[] bytes = new Byte[1024];
             TextWriter tw = null;
-
-            // Establish the local endpoint for the socket.
-            // Dns.GetHostName returns the name of the 
-            // host running the application.
-            // IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-           // IPHostEntry ipHostInfo = Dns.GetHostByName("aip-olivier");
-           // IPAddress ipAddress = ipHostInfo.AddressList.FirstOrDefault();
             IPAddress ipAddress = IPAddress.Parse(Settings1.Default.ServerIPAddress);
-            
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Settings1.Default.Port);
 
             // Create a TCP/IP socket.
@@ -97,10 +89,12 @@ namespace AmbitourSocketServerService
                 {
                     // Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
+                    eventLog1.WriteEntry(String.Format("Client connected : {0}", handler.RemoteEndPoint.ToString()));
                     //handler.ReceiveTimeout = Settings1.Default.SocketReceivedTimeout;
                     data = null;
                     try
                     {
+                       // while(handler.Poll(1000
                         // An incoming connection needs to be processed.
                         while (true)
                         {
