@@ -26,6 +26,8 @@ namespace AmbitourSocketServerService
     /// and store it as an xml file in the Request Queue on the disk to be processed later by Ambitour
     /// 
     /// The request must contain <EOF> at the end
+    /// 
+    /// TODO : modify the behaviour by using threads to handle multiple demands
     /// </summary>
     public partial class Service1 : ServiceBase
     {
@@ -89,12 +91,11 @@ namespace AmbitourSocketServerService
                 {
                     // Program is suspended while waiting for an incoming connection.
                     Socket handler = listener.Accept();
-                    eventLog1.WriteEntry(String.Format("Client connected : {0}", handler.RemoteEndPoint.ToString()));
+                    //eventLog1.WriteEntry(String.Format("Client connected : {0}", handler.RemoteEndPoint.ToString()));
                     //handler.ReceiveTimeout = Settings1.Default.SocketReceivedTimeout;
                     data = null;
                     try
                     {
-                       // while(handler.Poll(1000
                         // An incoming connection needs to be processed.
                         while (true)
                         {
@@ -115,7 +116,6 @@ namespace AmbitourSocketServerService
                         handler.Shutdown(SocketShutdown.Both);
                         handler.Close();
                         String request = data.Replace("<EOF>", "");
-                        // eventLog1.WriteEntry(String.Format("Text received : {0}", data));
 
                         //Deserialize message to ACLMessage : if OK, save to queue
 
